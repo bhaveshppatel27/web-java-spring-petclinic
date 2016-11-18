@@ -7,10 +7,10 @@ addons:
 services:
   - docker
 after_success:
-  - docker build -t myrepo .
+  - docker build -t mydockerrepo .
   - pip install --user awscli
   - export PATH=$PATH:$HOME/.local/bin
   - eval $(aws ecr get-login --region us-east-1)
-  - docker tag myrepo:latest 264155879067.dkr.ecr.us-east-1.amazonaws.com/mydockerrepo:petclinic
+  - docker tag mydockerrepo:latest 264155879067.dkr.ecr.us-east-1.amazonaws.com/mydockerrepo:petclinic
   - docker push 264155879067.dkr.ecr.us-east-1.amazonaws.com/mydockerrepo:petclinic
   - aws ecs run-task --cluster default --region us-east-1 --task-definition petclinic:1
